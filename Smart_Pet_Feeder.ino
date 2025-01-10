@@ -92,11 +92,19 @@ void setup()
   delay(100);
 
   BlynkEdgent.begin();
+
+  // NTP setup
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+
+  // Servo setup
+  servo.attach(servoPin);
+  servo.write(closeAngle); // Start with feeder closed
+
+  Serial.println("Setup complete");
+
 }
 
 void loop() {
   BlynkEdgent.run();
-
-
 }
 
