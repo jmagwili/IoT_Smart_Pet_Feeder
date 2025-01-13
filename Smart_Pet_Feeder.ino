@@ -51,8 +51,8 @@ const int daylightOffset_sec = 0;   // No DST in PH
 // Servo setup
 Servo servo;
 const int servoPin = 21;    // GPIO pin for servo
-const int openAngle = 90;   // Angle to open feeder
-const int closeAngle = 0;   // Angle to close feeder
+const int openAngle = 140;   // Angle to open feeder
+const int closeAngle = 100;   // Angle to close feeder
 
 // Feeding schedule
 String scheduledTime = "";
