@@ -39,6 +39,8 @@
 //#define USE_TTGO_T7
 //#define USE_TTGO_T_OI
 
+#define BUTTON_PIN 15
+
 #include "BlynkEdgent.h"
 #include <ESP32Servo.h>
 #include <time.h>
@@ -104,6 +106,8 @@ void setup()
   servo.attach(servoPin);
   servo.write(closeAngle); // Start with feeder closed
 
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+
   Serial.println("Setup complete");
 
 }
@@ -111,5 +115,11 @@ void setup()
 void loop() {
   BlynkEdgent.run();
 
+  int buttonState = digitalRead(BUTTON_PIN);
+
+  if (buttonState == LOW) {
+    dispenseFood();
+    delay(300);  // Debounce delay
+  }
 }
 
