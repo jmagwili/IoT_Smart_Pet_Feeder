@@ -44,6 +44,7 @@
 #include "BlynkEdgent.h"
 #include <ESP32Servo.h>
 #include <time.h>
+#include <Ultrasonic.h>
 
 // Time zone and NTP server
 const char* ntpServer = "pool.ntp.org";
@@ -58,6 +59,11 @@ const int closeAngle = 100;   // Angle to close feeder
 
 // Feeding schedule
 String scheduledTime = "";
+
+// Ultrasonic Sensor Setup
+Ultrasonic ultrasonic(12, 13);
+int distance;
+
 
 // Blynk Dropdown to set schedule
 BLYNK_WRITE(V0) {
@@ -121,5 +127,11 @@ void loop() {
     dispenseFood();
     delay(300);
   }
+
+  distance = ultrasonic.read();
+  
+  Serial.print("Distance in CM: ");
+  Serial.println(distance);
+  delay(1000);
 }
 
