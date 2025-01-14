@@ -61,7 +61,7 @@ const int closeAngle = 100;   // Angle to close feeder
 String scheduledTime = "";
 
 // Ultrasonic Sensor Setup
-Ultrasonic ultrasonic(12, 13);
+Ultrasonic ultrasonic(4, 16);
 int distance;
 
 
