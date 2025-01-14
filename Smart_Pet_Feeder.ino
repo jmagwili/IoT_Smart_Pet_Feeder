@@ -83,11 +83,11 @@ BLYNK_WRITE(V1) {
 void dispenseFood() {
   Serial.println("Dispensing food...");
   servo.write(openAngle);  // Open the feeder
-  delay(500);             // Keep it open for 3 seconds
+  delay(700);             // Keep it open for 3 seconds
   servo.write(closeAngle); // Close the feeder
   delay(300);
   servo.write(openAngle);  // Open the feeder
-  delay(500);             // Keep it open for 3 seconds
+  delay(700);             // Keep it open for 3 seconds
   servo.write(closeAngle);
   Serial.println("Feeding complete");
 }
