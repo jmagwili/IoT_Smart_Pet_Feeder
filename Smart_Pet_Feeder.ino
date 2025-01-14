@@ -119,10 +119,7 @@ void loop() {
 
   if (buttonState == HIGH) {
     dispenseFood();
-    delay(300);  // Debounce delay
+    delay(300);
   }
-  // Serial.println(buttonState);
-  // delay(1000);
-
 }
 
