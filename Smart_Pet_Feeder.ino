@@ -82,21 +82,26 @@ BLYNK_WRITE(V1) {
   int value = param.asInt();
   if (value) {
     Serial.println("Manual feed triggered");
-    dispenseFood();
-  }
+    if(!isContainerEmpty()){
+      dispenseFood();
+    }else{
+      Blynk.logEvent("food_failed_to_dispense");
+      Serial.println("failed to dispense. Empty container. notif sent");
+    }
+  } 
 }
 
-void dispenseFood() {
-  Serial.println("Dispensing food...");
-  servo.write(openAngle);  // Open the feeder
-  delay(700);             // Keep it open for 3 seconds
-  servo.write(closeAngle); // Close the feeder
-  delay(300);
-  servo.write(openAngle);  // Open the feeder
-  delay(700);             // Keep it open for 3 seconds
-  servo.write(closeAngle);
-  Serial.println("Feeding complete");
-}
+void dispenseFood() { 
+    Serial.println("Dispensing food...");
+    servo.write(openAngle);  // Open the feeder
+    delay(700);             // Keep it open for 3 seconds
+    servo.write(closeAngle); // Close the feeder
+    delay(300);
+    servo.write(openAngle);  // Open the feeder
+    delay(700);             // Keep it open for 3 seconds
+    servo.write(closeAngle);
+    Serial.println("Feeding complete");
+  }
 
 bool isContainerEmpty(){
   distance = ultrasonic.read();
@@ -135,8 +140,12 @@ void loop() {
   int buttonState = digitalRead(BUTTON_PIN);
 
   if (buttonState == HIGH) {
-    dispenseFood();
-    delay(300);
+    if(!isContainerEmpty()){
+      dispenseFood();
+      delay(300);
+    }else{
+      Serial.println("Food failed to dispense. Empty container");
+    }
   }
 
   if(isContainerEmpty()){
