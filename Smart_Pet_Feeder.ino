@@ -39,7 +39,7 @@
 //#define USE_TTGO_T7
 //#define USE_TTGO_T_OI
 
-#define BUTTON_PIN 15
+#define BUTTON_PIN 34
 
 #include "BlynkEdgent.h"
 #include <ESP32Servo.h>
