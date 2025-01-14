@@ -98,6 +98,14 @@ void dispenseFood() {
   Serial.println("Feeding complete");
 }
 
+bool isContainerEmpty(){
+  distance = ultrasonic.read();
+
+  if(distance == 9){
+    return true;
+  }
+}
+
 void setup()
 {
   Serial.begin(115200);
@@ -127,11 +135,5 @@ void loop() {
     dispenseFood();
     delay(300);
   }
-
-  distance = ultrasonic.read();
-  
-  Serial.print("Distance in CM: ");
-  Serial.println(distance);
-  delay(1000);
 }
 
