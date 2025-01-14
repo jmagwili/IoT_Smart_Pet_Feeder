@@ -117,9 +117,12 @@ void loop() {
 
   int buttonState = digitalRead(BUTTON_PIN);
 
-  if (buttonState == LOW) {
+  if (buttonState == HIGH) {
     dispenseFood();
     delay(300);  // Debounce delay
   }
+  // Serial.println(buttonState);
+  // delay(1000);
+
 }
 
