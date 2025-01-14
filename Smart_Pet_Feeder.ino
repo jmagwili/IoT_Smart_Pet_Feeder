@@ -140,7 +140,7 @@ void loop() {
   }
 
   if(isContainerEmpty()){
-    Blynk.logEvent("notification");
+    Blynk.logEvent("food_container_empty");
     Serial.println("notification sent");
   }
   
