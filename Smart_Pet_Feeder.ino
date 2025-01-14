@@ -138,5 +138,14 @@ void loop() {
     dispenseFood();
     delay(300);
   }
+
+  if(isContainerEmpty()){
+    Blynk.logEvent("notification");
+    Serial.println("notification sent");
+  }
+  
+  Serial.print("Distance in CM: ");
+  Serial.println(distance);
+  delay(1000);
 }
 
