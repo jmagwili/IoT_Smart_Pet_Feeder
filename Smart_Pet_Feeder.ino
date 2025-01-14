@@ -103,7 +103,10 @@ bool isContainerEmpty(){
 
   if(distance == 9){
     return true;
+  }else{
+    return false;
   }
+
 }
 
 void setup()
