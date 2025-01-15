@@ -303,6 +303,7 @@ void loop() {
         if(convertDay(toArray(morningSched[1])[i]) == timeinfo.tm_wday){
           if(currentTime == morningSched[0]){
             dispenseFood();
+            Blynk.logEvent("successfully_dispensed", "Morning Schedule");
             hasDispensedMorning = true;
           }
         }
@@ -315,6 +316,7 @@ void loop() {
         if(convertDay(toArray(afternoonSched[1])[i]) == timeinfo.tm_wday){
           if(currentTime == afternoonSched[0]){
             dispenseFood();
+            Blynk.logEvent("successfully_dispensed", "Afternoon Schedule");
             hasDispensedAfternoon = true;
           }
         }
@@ -327,6 +329,7 @@ void loop() {
         if(convertDay(toArray(eveningSched[1])[i]) == timeinfo.tm_wday){
           if(currentTime == eveningSched[0]){
             dispenseFood();
+            Blynk.logEvent("successfully_dispensed", "Evening Schedule");
             hasDispensedEvening = true;
           }
         }
