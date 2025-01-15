@@ -292,20 +292,15 @@ void loop() {
   snprintf(timeStr, sizeof(timeStr), "%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
   String currentTime = String(timeStr);
 
-  // Serial.println("Current time: " + currentTime);
-
   // Get the day of the week
   const char* daysOfWeek[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
   String currentDay = daysOfWeek[timeinfo.tm_wday];
-
-  Serial.println("Current time: " + currentTime + " (" + currentDay + ")");
   
   if(isAutoEnabled){
     // Check morning schedule
     for(int i=0; i<toArray(morningSched[1]).size();i++){
       if(!hasDispensedMorning){
         if(convertDay(toArray(morningSched[1])[i]) == timeinfo.tm_wday){
-          Serial.println("Scheduled time: " + morningSched[0]);
           if(currentTime == morningSched[0]){
             dispenseFood();
             hasDispensedMorning = true;
@@ -318,7 +313,6 @@ void loop() {
     for(int i=0; i<toArray(afternoonSched[1]).size();i++){
       if(!hasDispensedAfternoon){
         if(convertDay(toArray(afternoonSched[1])[i]) == timeinfo.tm_wday){
-          Serial.println("Scheduled time: " + afternoonSched[0]);
           if(currentTime == afternoonSched[0]){
             dispenseFood();
             hasDispensedAfternoon = true;
@@ -331,7 +325,6 @@ void loop() {
     for(int i=0; i<toArray(eveningSched[1]).size();i++){
       if(!hasDispensedEvening){
         if(convertDay(toArray(eveningSched[1])[i]) == timeinfo.tm_wday){
-          Serial.println("Scheduled time: " + eveningSched[0]);
           if(currentTime == eveningSched[0]){
             dispenseFood();
             hasDispensedEvening = true;
@@ -347,9 +340,7 @@ void loop() {
     hasDispensedAfternoon = false;
     hasDispensedEvening = false;
   }
-
-  delay(1000);
-  
+ 
   updateWiFiStatusLED();
 
   // Serial.print("Distance in CM: ");
