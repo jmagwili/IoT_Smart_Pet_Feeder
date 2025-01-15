@@ -69,6 +69,8 @@ bool hasDispensedMorning = false;
 bool hasDispensedAfternoon = false;
 bool hasDispensedEvening = false;
 
+bool isAutoEnabled = true;
+
 // Ultrasonic Sensor Setup
 Ultrasonic ultrasonic(4, 16);
 int distance;
@@ -112,6 +114,7 @@ BLYNK_WRITE(V2) {
   morningSched[1] = days;
 
   Serial.println("Updated schedule: " + morningSched[0] + morningSched[1]);
+  hasDispensedMorning = false;
 }
 
 // Afternoon Schedule
@@ -132,6 +135,7 @@ BLYNK_WRITE(V3) {
   afternoonSched[1] = days;
 
   Serial.println("Updated schedule: " + afternoonSched[0] + afternoonSched[1]);
+  hasDispensedAfternoon = false;
 }
 
 // Evening Schedule
@@ -152,6 +156,20 @@ BLYNK_WRITE(V4) {
   eveningSched[1] = days;
 
   Serial.println("Updated schedule: " + eveningSched[0] + eveningSched[1]);
+  hasDispensedEvening = false;
+}
+
+
+// Automatic Feeding Switch
+BLYNK_WRITE(V5) {
+  int value = param.asInt();
+  if (value) {
+    Serial.println("Auto feeding enabled");
+    isAutoEnabled = true;
+  }else{
+    Serial.println("Auto feeding disabled");
+    isAutoEnabled = false;
+  }
 }
 
 // Manual feed button
