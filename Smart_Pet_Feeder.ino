@@ -65,6 +65,10 @@ String morningSched[] = {"",""};
 String afternoonSched[] = {"",""};
 String eveningSched[] = {"",""};
 
+bool hasDispensedMorning = false;
+bool hasDispensedAfternoon = false;
+bool hasDispensedEvening = false;
+
 // Ultrasonic Sensor Setup
 Ultrasonic ultrasonic(4, 16);
 int distance;
@@ -280,12 +284,22 @@ void loop() {
   
 
   for(int i=0; i<toArray(morningSched[1]).size();i++){
-    if(convertDay(toArray(morningSched[1])[i]) == timeinfo.tm_wday){
-      Serial.println("Scheduled time: " + morningSched[0]);
-      if(currentTime == morningSched[0]){
-        dispenseFood();
+    if(!hasDispensedMorning){
+      if(convertDay(toArray(morningSched[1])[i]) == timeinfo.tm_wday){
+        Serial.println("Scheduled time: " + morningSched[0]);
+        if(currentTime == morningSched[0]){
+          dispenseFood();
+          hasDispensedMorning = true;
+        }
       }
     }
+  }
+
+  // Reset the flag at midnight
+  if (timeinfo.tm_hour == 0 && timeinfo.tm_min == 0) {
+    hasDispensedMorning = false;
+    hasDispensedAfternoon = false;
+    hasDispensedEvening = false;
   }
 
   delay(1000);
