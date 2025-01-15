@@ -108,6 +108,45 @@ BLYNK_WRITE(V2) {
   Serial.println("Updated schedule: " + morningSched[0] + morningSched[1]);
 }
 
+// Afternoon Schedule
+BLYNK_WRITE(V3) {
+  int time = param.asInt();
+  String days = param[3].asStr(); // Accepts time input as HH:MM
+  Serial.println(time);
+
+  int seconds = time; // Example value in seconds
+  int hours = seconds / 3600; // Calculate hours
+  int minutes = (seconds % 3600) / 60; // Calculate remaining minutes
+
+  // Format into HH:MM
+  char timeStr[6];
+  snprintf(timeStr, sizeof(timeStr), "%02d:%02d", hours, minutes);
+
+  afternoonSched[0] = timeStr;
+  afternoonSched[1] = days;
+
+  Serial.println("Updated schedule: " + afternoonSched[0] + afternoonSched[1]);
+}
+
+// Evening Schedule
+BLYNK_WRITE(V4) {
+  int time = param.asInt();
+  String days = param[3].asStr(); // Accepts time input as HH:MM
+  Serial.println(time);
+
+  int seconds = time; // Example value in seconds
+  int hours = seconds / 3600; // Calculate hours
+  int minutes = (seconds % 3600) / 60; // Calculate remaining minutes
+
+  // Format into HH:MM
+  char timeStr[6];
+  snprintf(timeStr, sizeof(timeStr), "%02d:%02d", hours, minutes);
+
+  eveningSched[0] = timeStr;
+  eveningSched[1] = days;
+
+  Serial.println("Updated schedule: " + eveningSched[0] + eveningSched[1]);
+}
 
 // Manual feed button
 BLYNK_WRITE(V1) {
