@@ -46,6 +46,8 @@
 #include <ESP32Servo.h>
 #include <time.h>
 #include <Ultrasonic.h>
+#include <set>
+#include <vector>
 
 // Time zone and NTP server
 const char* ntpServer = "time.google.com";
@@ -182,7 +184,36 @@ bool isContainerEmpty(){
   }else{
     return false;
   }
+}
 
+std::vector<int> toArray(String input) {
+  std::vector<int> result;
+  int startIndex = 0;
+  int commaIndex = input.indexOf(',');
+
+  while (commaIndex != -1) {
+    String number = input.substring(startIndex, commaIndex); // Extract the number
+    result.push_back(number.toInt());                       // Convert to int and store in vector
+    startIndex = commaIndex + 1;                            // Move past the comma
+    commaIndex = input.indexOf(',', startIndex);            // Find the next comma
+  }
+
+  // Handle the last (or only) number
+  if (startIndex < input.length()) {
+    String number = input.substring(startIndex);
+    result.push_back(number.toInt());
+  }
+
+  return result;
+}
+
+int convertDay(int dayOfWeek) {
+    // Ensure the input is between 1 and 7
+    if (dayOfWeek < 1 || dayOfWeek > 7) {
+        throw std::invalid_argument("Invalid day of the week. Must be between 1 and 7.");
+    }
+    // Convert the day format
+    return (dayOfWeek % 7);
 }
 
 void setup()
