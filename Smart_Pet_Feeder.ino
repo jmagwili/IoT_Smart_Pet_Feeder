@@ -282,12 +282,38 @@ void loop() {
 
   Serial.println("Current time: " + currentTime + " (" + currentDay + ")");
   
-
+  // Check morning schedule
   for(int i=0; i<toArray(morningSched[1]).size();i++){
     if(!hasDispensedMorning){
       if(convertDay(toArray(morningSched[1])[i]) == timeinfo.tm_wday){
         Serial.println("Scheduled time: " + morningSched[0]);
         if(currentTime == morningSched[0]){
+          dispenseFood();
+          hasDispensedMorning = true;
+        }
+      }
+    }
+  }
+
+  // Check afternoon schedule
+  for(int i=0; i<toArray(afternoonSched[1]).size();i++){
+    if(!hasDispensedMorning){
+      if(convertDay(toArray(afternoonSched[1])[i]) == timeinfo.tm_wday){
+        Serial.println("Scheduled time: " + afternoonSched[0]);
+        if(currentTime == afternoonSched[0]){
+          dispenseFood();
+          hasDispensedMorning = true;
+        }
+      }
+    }
+  }
+
+  // Check evening schedule
+  for(int i=0; i<toArray(eveningSched[1]).size();i++){
+    if(!hasDispensedMorning){
+      if(convertDay(toArray(eveningSched[1])[i]) == timeinfo.tm_wday){
+        Serial.println("Scheduled time: " + eveningSched[0]);
+        if(currentTime == eveningSched[0]){
           dispenseFood();
           hasDispensedMorning = true;
         }
