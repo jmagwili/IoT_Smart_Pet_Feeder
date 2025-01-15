@@ -64,6 +64,26 @@ String scheduledTime = "";
 Ultrasonic ultrasonic(4, 16);
 int distance;
 
+// WiFi status LED control
+bool isWiFiConnected = false;
+unsigned long previousMillis = 0;
+const long blinkInterval = 500; // Interval for LED blinking (ms)
+
+void updateWiFiStatusLED() {
+  if (Blynk.connected()) {
+    if (!isWiFiConnected) {
+      isWiFiConnected = true;
+      digitalWrite(LED_PIN, HIGH); // Turn on LED
+    }
+  } else {
+    isWiFiConnected = false;
+    unsigned long currentMillis = millis();
+    if (currentMillis - previousMillis >= blinkInterval) {
+      previousMillis = currentMillis;
+      digitalWrite(LED_PIN, !digitalRead(LED_PIN)); // Toggle LED
+    }
+  }
+}
 
 // Blynk Dropdown to set schedule
 BLYNK_WRITE(V0) {
@@ -129,6 +149,7 @@ void setup()
   servo.write(closeAngle); // Start with feeder closed
 
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(LED_PIN, OUTPUT); // Set LED pin as output
 
   Serial.println("Setup complete");
 
@@ -152,7 +173,9 @@ void loop() {
     Blynk.logEvent("food_container_empty");
     Serial.println("notification sent");
   }
-  
+
+  updateWiFiStatusLED();
+
   Serial.print("Distance in CM: ");
   Serial.println(distance);
   delay(1000);
