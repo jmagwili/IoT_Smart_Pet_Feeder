@@ -276,8 +276,18 @@ void loop() {
   const char* daysOfWeek[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
   String currentDay = daysOfWeek[timeinfo.tm_wday];
 
-  // Serial.println("Current time: " + currentTime + " (" + currentDay + ")");
+  Serial.println("Current time: " + currentTime + " (" + currentDay + ")");
   
+
+  for(int i=0; i<toArray(morningSched[1]).size();i++){
+    if(convertDay(toArray(morningSched[1])[i]) == timeinfo.tm_wday){
+      Serial.println("Scheduled time: " + morningSched[0]);
+      if(currentTime == morningSched[0]){
+        dispenseFood();
+      }
+    }
+  }
+
   delay(1000);
   
   updateWiFiStatusLED();
