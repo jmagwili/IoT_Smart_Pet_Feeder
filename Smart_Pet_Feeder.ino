@@ -106,12 +106,6 @@ BLYNK_WRITE(V2) {
   morningSched[1] = days;
 
   Serial.println("Updated schedule: " + morningSched[0] + morningSched[1]);
-  // if (time.length() == 5 && time.indexOf(':') == 2) {
-  //   morningSched[0] = time;
-  //   Serial.println("Updated schedule: " + morningSched[0] + morningSched[1]);
-  // } else {
-  //   Serial.println("Invalid time format");
-  // }
 }
 
 
