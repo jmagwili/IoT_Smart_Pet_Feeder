@@ -59,7 +59,9 @@ const int openAngle = 140;   // Angle to open feeder
 const int closeAngle = 100;   // Angle to close feeder
 
 // Feeding schedule
-String scheduledTime = "";
+String morningSched[] = {"",""};
+String afternoonSched[] = {"",""};
+String eveningSched[] = {"",""};
 
 // Ultrasonic Sensor Setup
 Ultrasonic ultrasonic(4, 16);
@@ -86,15 +88,30 @@ void updateWiFiStatusLED() {
   }
 }
 
-// Blynk Dropdown to set schedule
-BLYNK_WRITE(V0) {
-  String timeInput = param.asStr(); // Accepts time input as HH:MM
-  if (timeInput.length() == 5 && timeInput.indexOf(':') == 2) {
-    scheduledTime = timeInput;
-    Serial.println("Updated schedule: " + scheduledTime);
-  } else {
-    Serial.println("Invalid time format");
-  }
+// Morning Schedule
+BLYNK_WRITE(V2) {
+  int time = param.asInt();
+  String days = param[3].asStr(); // Accepts time input as HH:MM
+  Serial.println(time);
+
+  int seconds = time; // Example value in seconds
+  int hours = seconds / 3600; // Calculate hours
+  int minutes = (seconds % 3600) / 60; // Calculate remaining minutes
+
+  // Format into HH:MM
+  char timeStr[6];
+  snprintf(timeStr, sizeof(timeStr), "%02d:%02d", hours, minutes);
+
+  morningSched[0] = timeStr;
+  morningSched[1] = days;
+
+  Serial.println("Updated schedule: " + morningSched[0] + morningSched[1]);
+  // if (time.length() == 5 && time.indexOf(':') == 2) {
+  //   morningSched[0] = time;
+  //   Serial.println("Updated schedule: " + morningSched[0] + morningSched[1]);
+  // } else {
+  //   Serial.println("Invalid time format");
+  // }
 }
 
 
