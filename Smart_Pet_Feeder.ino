@@ -48,7 +48,7 @@
 #include <Ultrasonic.h>
 
 // Time zone and NTP server
-const char* ntpServer = "pool.ntp.org";
+const char* ntpServer = "time.google.com";
 const long gmtOffset_sec = 8 * 3600; // GMT+8 for Philippine Time
 const int daylightOffset_sec = 0;   // No DST in PH
 
