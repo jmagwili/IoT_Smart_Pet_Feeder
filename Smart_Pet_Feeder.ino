@@ -175,10 +175,32 @@ void loop() {
     Serial.println("notification sent");
   }
 
+    // Get the current time
+  struct tm timeinfo;
+  if (!getLocalTime(&timeinfo)) {
+    Serial.println("Failed to obtain time");
+    return;
+  }
+
+  // Format current time as HH:MM
+  char timeStr[6];
+  snprintf(timeStr, sizeof(timeStr), "%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
+  String currentTime = String(timeStr);
+
+  // Serial.println("Current time: " + currentTime);
+
+  // Get the day of the week
+  const char* daysOfWeek[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+  String currentDay = daysOfWeek[timeinfo.tm_wday];
+
+  // Serial.println("Current time: " + currentTime + " (" + currentDay + ")");
+  
+  delay(1000);
+  
   updateWiFiStatusLED();
 
-  Serial.print("Distance in CM: ");
-  Serial.println(distance);
-  delay(1000);
+  // Serial.print("Distance in CM: ");
+  // Serial.println(distance);
+  // delay(1000);
 }
 
