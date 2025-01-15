@@ -161,6 +161,7 @@ void loop() {
 
   int buttonState = digitalRead(BUTTON_PIN);
 
+  // Manual dispense button
   if (buttonState == HIGH) {
     if(!isContainerEmpty()){
       dispenseFood();
@@ -170,6 +171,7 @@ void loop() {
     }
   }
 
+  // Send notification if container is empty
   if(isContainerEmpty()){
     Blynk.logEvent("food_container_empty");
     Serial.println("notification sent");
